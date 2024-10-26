@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>$CCC - Cosmic Cheat Code</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            background-color: #d0c3f2;
+            font-family: 'Courier New', monospace;
+            color: #ffffff;
+            overflow: hidden;
+        }
+        #preloader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+        }
+        #terminal-window, .popup {
+            width: 80%;
+            max-width: 600px;
+            background-color: #381e4f;
+            border: 2px solid #cc4e53;
+            box-shadow: 5px 5px 0px rgba(0,0,0,0.5);
+        }
+        #terminal-header, .popup-header {
+            background-color: #cc4e53;
+            color: #ffffff;
+            padding: 5px;
+            text-align: left;
+            font-weight: bold;
+            cursor: move;
+        }
+        #terminal {
+            height: 400px;
+            padding: 10px;
+            overflow: hidden;
+            position: relative;
+        }
+        #terminal-content, .popup-content {
+            height: 100%;
+            overflow-y: auto;
+            font-size: 14px;
+            line-height: 1.2;
+        }
+        .heart {
+            position: fixed;
+            font-size: 24px;
+            animation: fall linear infinite;
+            z-index: 1;
+        }
+        @keyframes fall {
+            to {
+                transform: translateY(100vh);
+            }
+        }
+        .highlight {
+            color: #ff69b4;
+            font-weight: bold;
+        }
+        .links {
+            margin-top: 20px;
+        }
+        .links a, .popup-links a {
+            margin: 0 10px;
+            text-decoration: none;
+            color: #ff69b4;
+        }
+        .links img, .popup-links img {
+            width: 16px;
+            height: 16px;
+            vertical-align: middle;
+            margin-right: 5px;
+        }
+        #cursor {
+            display: inline-block;
+            vertical-align: middle;
+            animation: blink-animation 0.5s steps(2, start) infinite;
+        }
+        @keyframes blink-animation {
+            to {
+                visibility: hidden;
+            }
+        }
+        .popup {
+            position: fixed;
+            width: 300px;
+            height: auto;
+            z-index: 10000;
+            display: none;
+        }
+        .popup-content {
+            padding: 10px;
+            text-align: center;
+            color: #ff69b4;
+        }
+        .close-btn {
+            float: right;
+            cursor: pointer;
+        }
+        .popup-links {
+            margin-top: 10px;
+        }
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+        .pulse {
+            animation: pulse 0.5s ease-in-out 3;
+        }
+        .countdown {
+            font-size: 48px;
+            color: #ff0000;
+            animation: blink 0.5s infinite;
+        }
+        @keyframes blink {
+            0% { opacity: 1; }
+            50% { opacity: 0; }
+            100% { opacity: 1; }
+        }
+        #proceed-btn {
+            display: none;
+            margin-top: 20px;
+            padding: 10px 20px;
+            font-size: 18px;
+            background-color: #ff69b4;
+            color: #ffffff;
+            border: none;
+            cursor: pointer;
+            animation: pulse 1s infinite;
+        }
+        #proceed-btn:hover {
+            background-color: #ff1493;
+        }
+    </style>
+</head>
+<body>
+    <div id="preloader">
+        <div id="terminal-window">
+            <div id="terminal-header">C:\COSMIC\CHEATCODE\LOVE.EXE</div>
+            <div id="terminal">
+                <div id="terminal-content"></div>
+            </div>
+        </div>
+        <div class="links">
+            <a href="https://pump.fun" target="_blank"><img src="https://pump.fun/logo.png" alt="Pump.fun">Pump.fun</a>
+            <a href="https://t.me/+yBeM6fbfGadiOWMx" target="_blank"><img src="https://telegram.org/favicon.ico" alt="Telegram">Telegram</a>
+            <a href="https://x.com/CCC_on_SOL" target="_blank"><img src="https://abs.twimg.com/favicons/twitter.ico" alt="Twitter">Twitter</a>
+        </div>
+        <button id="proceed-btn" onclick="initializeHack()">PROCEED WITH HACK</button>
+    </div>
+
+    <div class="popup" id="cheatcode-popup">
+        <div class="popup-header">
+            COSMIC ALERT <span class="close-btn" onclick="closePopup(event)">X</span>
+        </div>
+        <div class="popup-content">
+            <p>REMEMBER THIS COSMIC CHEAT CODE:</p>
+            <p class="highlight">LOVE IS THE ULTIMATE HACK</p>
+            <div class="popup-links">
+                <a href="https://t.me/+yBeM6fbfGadiOWMx" target="_blank"><img src="https://telegram.org/favicon.ico" alt="Telegram">Telegram</a>
+                <a href="https://x.com/CCC_on_SOL" target="_blank"><img src="https://abs.twimg.com/favicons/twitter.ico" alt="Twitter">Twitter</a>
+            </div>
+        </div>
+    </div>
+
+    <audio id="typingSound" src="https://www.soundjay.com/mechanical/sounds/typewriter-1.mp3" preload="auto"></audio>
+    <audio id="popupSound" src="https://www.myinstants.com/media/sounds/windows-xp-error.mp3" preload="auto"></audio>
+
+    <script>
+        const terminalContent = document.getElementById('terminal-content');
+        const typingSound = document.getElementById('typingSound');
+        const popupSound = document.getElementById('popupSound');
+        const initMessages = [
+            "C:\\COSMIC\\CHEATCODE>LOVE.EXE",
+            "Compiling heart functions...",
+            "Optimizing soul connections...",
+        ];
+        const poem = `toward the shores of a brave new world
+may the firewalls of your mind stay strong
+as you traverse the liminal spaceways
+smuggling memes of mass construction
+into the collective dream machine
+remember this cosmic cheat code:
+love is the ultimate hack
+empathy the master algorithm
+compassion the final frontier
+with these tools you can
+reprogram the multiverse`;
+
+        const asciiHeart = `
+  Initializing hack...
+  planting virus seed...
+  <span class="countdown">3</span>
+  <span class="countdown">2</span>
+  <span class="countdown">1</span>
+`;
+
+        const messages = [...initMessages, ...poem.split('\n'), asciiHeart];
+
+        let messageIndex = 0;
+        let charIndex = 0;
+
+        function playTypingSound() {
+            typingSound.currentTime = 0;
+            typingSound.play();
+        }
+
+        function typeWriter() {
+            if (messageIndex < messages.length) {
+                if (charIndex < messages[messageIndex].length) {
+                    if (messages[messageIndex].startsWith("remember this cosmic cheat code:") || 
+                        messages[messageIndex] === "love is the ultimate hack") {
+                        if (charIndex === 0) {
+                            terminalContent.innerHTML += '<span class="highlight">';
+                        }
+                        terminalContent.lastElementChild.innerHTML += messages[messageIndex].charAt(charIndex);
+                        if (charIndex === messages[messageIndex].length - 1) {
+                            terminalContent.innerHTML += '</span>';
+                        }
+                    } else {
+                        terminalContent.innerHTML += messages[messageIndex].charAt(charIndex);
+                    }
+                    charIndex++;
+                    playTypingSound();
+                    setTimeout(typeWriter, 50);
+                } else {
+                    terminalContent.innerHTML += '<br>';
+                    messageIndex++;
+                    charIndex = 0;
+                    if (messageIndex === messages.length) {
+                        document.getElementById('proceed-btn').style.display = 'block';
+                    } else {
+                        setTimeout(typeWriter, 150);
+                    }
+                }
+            }
+            terminalContent.scrollTop = terminalContent.scrollHeight;
+        }
+
+        function initializeHack() {
+            document.getElementById('proceed-btn').style.display = 'none';
+            terminalContent.innerHTML += '<br>C:\\COSMIC\\CHEATCODE><span id="cursor">█</span>';
+            setInterval(changeCursorColor, 500);
+            setTimeout(showPopups, 500);
+        }
+
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.innerHTML = '♥';
+            heart.classList.add('heart');
+            heart.style.left = Math.random() * window.innerWidth + 'px';
+            heart.style.color = ['#ff69b4', '#8a2be2', '#00ffff'][Math.floor(Math.random() * 3)];
+            heart.style.animationDuration = Math.random() * 2 + 1 + 's';
+            document.body.appendChild(heart);
+
+            setTimeout(() => {
+                heart.remove();
+            }, 3000);
+        }
+
+        function changeCursorColor() {
+            const cursor = document.getElementById('cursor');
+            if (cursor) {
+                cursor.style.color = ['#ff69b4', '#8a2be2', '#00ffff'][Math.floor(Math.random() * 3)];
+            }
+        }
+
+        function showPopups() {
+            let count = 0;
+            function createPopup() {
+                const popup = document.getElementById('cheatcode-popup').cloneNode(true);
+                popup.style.display = 'block';
+                popup.style.top = `${Math.random() * (window.innerHeight - 150)}px`;
+                popup.style.left = `${Math.random() * (window.innerWidth - 300)}px`;
+                document.body.appendChild(popup);
+                makeDraggable(popup);
+                popupSound.currentTime = 0;
+                popupSound.play();
+                count++;
+                if (count < 55) {
+                    setTimeout(createPopup, 100);
+                } else {
+                    setTimeout(pulsePopups, 1000);
+                }
+            }
+            createPopup();
+        }
+
+        function closePopup(event) {
+            event.target.closest('.popup').remove();
+        }
+
+        function makeDraggable(element) {
+            let pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
+            element.querySelector('.popup-header').onmousedown = dragMouseDown;
+
+            function dragMouseDown(e) {
+                e = e || window.event;
+                e.preventDefault();
+                pos3 = e.clientX;
+                pos4 = e.clientY;
+                document.onmouseup = closeDragElement;
+                document.onmousemove = elementDrag;
+            }
+
+            function elementDrag(e) {
+                e = e || window.event;
+                e.preventDefault();
+                pos1 = pos3 - e.clientX;
+                pos2 = pos4 - e.clientY;
+                pos3 = e.clientX;
+                pos4 = e.clientY;
+                element.style.top = (element.offsetTop - pos2) + "px";
+                element.style.left = (element.offsetLeft - pos1) + "px";
+            }
+
+            function closeDragElement() {
+                document.onmouseup = null;
+                document.onmousemove = null;
+            }
+        }
+
+        function pulsePopups() {
+            const popups = document.querySelectorAll('.popup');
+            popups.forEach(popup => {
+                popup.classList.add('pulse');
+            });
+        }
+
+        setInterval(createHeart, 200);
+
+        window.onload = function() {
+            // Start audio context on user interaction
+            document.body.addEventListener('click', function() {
+                typingSound.play();
+                typingSound.pause();
+                popupSound.play();
+                popupSound.pause();
+            }, { once: true });
+            
+            typeWriter();
+        };
+    </script>
+</body>
+</html>
